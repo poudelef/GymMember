@@ -1,10 +1,11 @@
 import datetime
 class Person:
-    count = 0
-    DOB_count = 0
+    __count = 0 # class variabe aka static field
+    __DOB_count = 1
+    __MAX_DOB_UPDATES = 3
     __registered_date = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S") 
-    def __init__(self, name = "", __DOB = "", phoneNumber = "", gender = "", address = "", ):
-        Person.count += 1
+    def __init__(self, name = "", __DOB = "", phoneNumber = "", gender = "", address = "", ): # __init__ is a constructor in python
+        Person.__count += 1
         self.name = name
         self.DOB = __DOB
         self.phoneNumber = phoneNumber
@@ -14,12 +15,18 @@ class Person:
     
 
     def update_DOB(self, new_DOB):
-        if Person.DOB_count > 4:
-            raise Exception("You can only update your DOB three times")
-        self.DOB = new_DOB
-        Person.DOB_count += 1
-        print(f"DOB Updated Successfully, You can update it {3-Person.DOB_count} more times")
-        return True
+        if Person.__DOB_count > Person.__MAX_DOB_UPDATES:
+            raise Exception("You already updated your DOB 3 times, you can't update it anymore. Please contact support if you need to update it again.")
+            return False
+        else:
+            self.DOB = new_DOB
+            if Person.__DOB_count - Person.__MAX_DOB_UPDATES == 0:
+                print("You can't update your DOB anymore")
+            else:    
+                print(f"DOB Updated Successfully, You can update it {Person.__MAX_DOB_UPDATES-Person.__DOB_count} more times")
+
+            Person.__DOB_count += 1
+            return True
     
     def calculate_age(self):
         today = datetime.date.today()
@@ -27,7 +34,7 @@ class Person:
         age = today.year - birth_date.year - ((today.month, today.day) < (birth_date.month, birth_date.day))
         return age
 
-    def Person_info(self):
+    def person_info(self):
         return {
             "Name:": self.name, 
             "DOB": self.DOB, 
@@ -40,4 +47,12 @@ class Person:
     
 
 Sambhav = Person("Sambhav", "2005-01-31", "513-276-2979", "Male", "1234 Elm St, Springfield, IL")    
-print(Sambhav.Person_info())
+print(Sambhav.person_info())
+
+Sambhav.update_DOB("2005-02-01")
+Sambhav.update_DOB("2005-02-02")
+Sambhav.update_DOB("2005-02-03")
+Sambhav.update_DOB("2005-02-04")
+# # # # Sambhav.update_DOB("2005-02-05")
+
+

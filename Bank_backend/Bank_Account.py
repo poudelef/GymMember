@@ -42,8 +42,8 @@ class BankAccount:
 
 
 
-Sambhav_acc = BankAccount(20, 2000)
+# Sambhav_acc = BankAccount(20, 2000)
 
-Sambhav_acc.change_age(21)
-Sambhav_acc.deposit(1000)
-Sambhav_acc.withdraw(500)
+# Sambhav_acc.change_age(21)
+# Sambhav_acc.deposit(1000)
+# Sambhav_acc.withdraw(500)
