@@ -22,7 +22,7 @@ class BankAccount:
         self.__name = name
         self.__age = age
         self._balance = initial_balance
-        print(f"\nAccount Created {self.__name}. \nBalance ${self._balance}\n")
+        print(f"Account Name {self.__name}. \nBalance ${self._balance}\n")
 
     def get_acc_no(self):
         return self.__acc_no
@@ -70,7 +70,7 @@ class BankAccount:
             print(f"Deposited ${amount} to {self.__name}'s account")
             print(f"Current Balance : ${ self._balance } \n")
         except DepositException as e: 
-            print("\Deposit failed\n")
+            print("Deposit failed\n")
             print(e)
     
         
@@ -87,13 +87,16 @@ class BankAccount:
     def transfer(self, amount, account):
         try:
             self.viableWithdrawTransaction(amount)
-            print("-------------------------")
-            print(f"Transferring...... ${amount} to {account.get_name()}\n")
+            print("+++++++++++++++++++++++++++++++++++++++++++++++++++")
+            print(f"\n\t\t Transferring...... ${amount} to {account.get_name()}\n")
             self.withdraw(amount)
             account.deposit(amount)
             print(f"Success !!!")
-            print(f"Your total balance is : ${self._balance}")
-            print("-------------------------")
+            print(f"Your total balance is : ${self._balance}\n")
+            print("\t\t\tTransfer Complete \n")
+            print("+++++++++++++++++++++++++++++++++++++++++++++++++++")
+            
+             
         except WithdrawException as e:
             print("\nTransfer failed")
             print(e)    
@@ -105,6 +108,8 @@ class FirstAccountReward(BankAccount):
         if FirstAccountReward.__count == 0:
             self._balance = self._balance + (amount * 2)
             print("Deposit Complete")
+            print(f"Total Balance: {self._balance} \n" )
+
             FirstAccountReward.__count += 1
         else:
             BankAccount.deposit(self,amount)   

@@ -1,4 +1,6 @@
 import datetime
+from Bank_Account import *
+
 class Person:
     __count = 0 # class variabe aka static field
     MAX_DOB_UPDATES = 3
@@ -13,6 +15,9 @@ class Person:
         self.address = address
         self.__registered_date = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S") 
         self.__DOB_count = 1
+        self.account: BankAccount | None = None
+        self.firstRewardAccount: FirstAccountReward | None = None
+
     
 
     def update_DOB(self, new_DOB):
@@ -35,13 +40,16 @@ class Person:
         return age
 
     def person_info(self):
-        return {
-            "name:": self.name, 
-            "DOB": self.DOB, 
-             "age": self.calculate_age(),
-            "phone number": self.phoneNumber, 
-            "gender": self.gender, 
-            "address": self.address, 
-            "registered date": self.__registered_date,
-            }
+        print(f"\n Name: {self.name}\n Date of Birth: {self.DOB} \n Age: {self.calculate_age()} \n Phone Number: {self.phoneNumber} \n Gender: {self.gender} \n Address: {self.address} \n Registered Date: {self.__registered_date} \n" )
+        return 
+
+    def open_bankAccount(self, amount):
+        print("Account Created")
+        self.account = BankAccount(self.name, self.calculate_age(), amount)
+        return self.account 
+    
+    def open_firstBankAccount(self, amount):
+        print("First time accound created")
+        self.firstRewardAccount = FirstAccountReward(self.name, self.calculate_age(), amount)
+        return self.account 
     
