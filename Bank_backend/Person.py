@@ -1,9 +1,9 @@
 import datetime
 class Person:
     __count = 0 # class variabe aka static field
-    
-    __MAX_DOB_UPDATES = 3
-    __registered_date = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S") 
+    MAX_DOB_UPDATES = 3
+
+  
     def __init__(self, name = "", __DOB = "", phoneNumber = "", gender = "", address = "", ): # __init__ is a constructor in python
         Person.__count += 1
         self.name = name
@@ -11,20 +11,19 @@ class Person:
         self.phoneNumber = phoneNumber
         self.gender = gender
         self.address = address
-        self.__registered_date = Person.__registered_date
+        self.__registered_date = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S") 
         self.__DOB_count = 1
     
 
     def update_DOB(self, new_DOB):
-        if self.__DOB_count > Person.__MAX_DOB_UPDATES:
+        if self.__DOB_count > Person.MAX_DOB_UPDATES:
             raise PermissionError("You already updated your DOB 3 times, you can't update it anymore. Please contact support if you need to update it again.")
-            return False
         else:
             self.DOB = new_DOB
-            if self.__DOB_count - Person.__MAX_DOB_UPDATES == 0:
+            if self.__DOB_count - Person.MAX_DOB_UPDATES == 0:
                 print("You can't update your DOB anymore")
             else:    
-                print(f"DOB Updated Successfully, You can update it {Person.__MAX_DOB_UPDATES-self.__DOB_count} more times")
+                print(f"DOB Updated Successfully, You can update it {Person.MAX_DOB_UPDATES-self.__DOB_count} more times")
 
             self.__DOB_count += 1
             return True
@@ -37,13 +36,13 @@ class Person:
 
     def person_info(self):
         return {
-            "Name:": self.name, 
+            "name:": self.name, 
             "DOB": self.DOB, 
-             "Age": self.calculate_age(),
-            "Phone Number": self.phoneNumber, 
-            "Gender": self.gender, 
-            "Address": self.address, 
-            "Registered Date": self.__registered_date,
+             "age": self.calculate_age(),
+            "phone number": self.phoneNumber, 
+            "gender": self.gender, 
+            "address": self.address, 
+            "registered date": self.__registered_date,
             }
     
 
