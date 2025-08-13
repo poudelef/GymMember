@@ -1,43 +1,69 @@
-# GymMember Class – Object-Oriented Gym Membership Manager 🏋️‍♂️
+# Bank Backend (OOP)
 
-This Python class `GymMember` is designed to model a gym membership system using object-oriented programming principles like encapsulation, class vs instance variables, and data hiding.
+A small, self-contained Python project that demonstrates Object-Oriented Programming concepts for a banking domain: accounts, first-deposit rewards, people, transfers, and custom error handling.
 
-## 🧠 Features
+## Features
 
-- **Auto-generated Member ID:** Each new member gets a unique ID, assigned automatically.
-- **Validated Membership Tiers:** Only allows valid membership types: `"Basic"`, `"Plus"`, or `"Elite"`.
-- **Gym Capacity Limit:** Prevents adding new members once the maximum capacity (default: 100) is reached.
-- **Full Name Update Limit:** A member can only change their name up to **4 times**.
-- **Check-In System:** Tracks how many times a member checks into the gym.
-- **Commitment Badges:** Earned every 10 check-ins; check-in count resets after each badge.
-- **Encapsulation:** All internal variables are private and accessed only via methods.
-- **Class Stats:** Track total members and maximum gym capacity using class methods.
+**BankAccount**:
+
+1. Create accounts with name, age, initial balance.
+2. Deposit and withdraw with validation
+3. Transfer funds between accounts
+4. Custom exceptions: DepositException, WithdrawException
+
+**FirstAccountReward (subclass)**:
+
+1. Overrides deposit to double the first deposit
+2. Falls back to base deposit afterwards
+
+**Person (composition)**
+
+1. A Person has a BankAccount and/or a FirstAccountReward
+2. DOB tracking, age calculation, and limited DOB updates
+3. Helper methods to open accounts
 
 ---
+
+## Installation
+
+git clone <your-repo-url>.git
+cd <repo-folder>
+python --version # ensure Python 3.10+
 
 ## 🛠️ How to Use
 
 ```python
-# Create a new member
-member1 = GymMember("Alice Johnson", "Plus")
+# Create a customer
+python Customer.py
+#(Optional) Sanity-check the account classes
+python Bank_Account.py
 
 # Get member info
 print(member1.get_member_id())        # e.g., 1
 print(member1.get_full_name())        # "Alice Johnson"
 
-# Update name (max 4 times)
-member1.update_full_name("Alice J.")  # True
+from Person import Person
 
-# Update tier
-member1.update_membership_tier("Elite")  # True
+p1 = Person("David","2000-01-11","51422164352","Male","3023 Marsal Avenue")
+p1.person_info()                      # prints profile
+p1.open_bankAccount(3000)             # creates and stores p1.account (BankAccount)
+print(p1.account.get_balance())       # 3000
 
-# Simulate check-ins
-for _ in range(10):
-    member1.check_in()
+p2 = Person("Smith","2002-04-18","5145385929","Male","1063 Loveland Avenue")
+p2.open_bankAccount(5000)
 
-# Get commitment badges
-print(member1.get_commitment_badges())  # 1
+p3 = Person("Linlin","2006-12-18","5534585929","Female","4032 Cristine Avenue")
+p3.open_firstBankAccount(2000)        # creates and stores p3.firstRewardAccount
+p3.firstRewardAccount.deposit(500)    # first deposit doubled
 
-# Get gym stats
-print(GymMember.get_total_members())    # e.g., 1
-print(GymMember.get_max_capacity())     # 100
+# Transfer from Linlin's reward account to David's regular account:
+p3.firstRewardAccount.transfer(1000, p1.account)   # pass a BankAccount, not a Person
+
+
+## Contributing
+
+1. Fork the repository.
+2. Create a feature branch.
+3. Commit changes with clear messages.
+4. Open a pull request describing the change and reasoning.
+```
