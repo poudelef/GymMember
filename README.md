@@ -26,9 +26,7 @@ A small, self-contained Python project that demonstrates Object-Oriented Program
 
 ## Installation
 
-git clone <your-repo-url>.git
-cd <repo-folder>
-python --version # ensure Python 3.10+
+Clone this repo
 
 ## 🛠️ How to Use
 
