@@ -21,8 +21,8 @@ class BankAccount:
         self.__acc_no = BankAccount.__count
         self.__name = name
         self.__age = age
-        self.__balance = initial_balance
-        print(f"\nAccount Created {self.__name}. \nBalance ${self.__balance}\n")
+        self._balance = initial_balance
+        print(f"\nAccount Created {self.__name}. \nBalance ${self._balance}\n")
 
     def get_acc_no(self):
         return self.__acc_no
@@ -44,7 +44,7 @@ class BankAccount:
         print(f"Your name has been updated to: ", self.__name)    
 
     def get_balance(self):
-        return self.__balance
+        return self._balance
     
 
     def viableDepositTransaction(self, amount):
@@ -56,19 +56,19 @@ class BankAccount:
             )
         
     def viableWithdrawTransaction(self, amount):
-        if self.__balance >= amount:
+        if self._balance >= amount:
             return
         else:
             raise WithdrawException(
-                f"\nCurrent balance: ${self.__balance}, Requested amount: ${amount} \n"
+                f"\nCurrent balance: ${self._balance}, Requested amount: ${amount} \n"
             )    
 
     def deposit(self, amount):
         try:
             self.viableDepositTransaction(amount)
-            self.__balance += amount
+            self._balance += amount
             print(f"Deposited ${amount} to {self.__name}'s account")
-            print(f"Current Balance : ${ self.__balance } \n")
+            print(f"Current Balance : ${ self._balance } \n")
         except DepositException as e: 
             print("\Deposit failed\n")
             print(e)
@@ -77,9 +77,9 @@ class BankAccount:
     def withdraw(self, amount):
         try:
             self.viableWithdrawTransaction(amount)
-            self.__balance -= amount
+            self._balance -= amount
             print(f"Withdrawed ${amount} from {self.__name}'s account")
-            print(f"Current Balance : $ {self.__balance}\n")
+            print(f"Current Balance : $ {self._balance}\n")
         except WithdrawException as e:
             print("\nWithDraw failed")
             print(e)    
@@ -87,19 +87,27 @@ class BankAccount:
     def transfer(self, amount, account):
         try:
             self.viableWithdrawTransaction(amount)
+            print("-------------------------")
             print(f"Transferring...... ${amount} to {account.get_name()}\n")
             self.withdraw(amount)
             account.deposit(amount)
             print(f"Success !!!")
-            print(f"Your total balance is : ${self.__balance}\n")
+            print(f"Your total balance is : ${self._balance}")
+            print("-------------------------")
         except WithdrawException as e:
             print("\nTransfer failed")
             print(e)    
 
 
+class FirstAccountReward(BankAccount):
+    __count = 0
+    def deposit(self, amount):
+        if FirstAccountReward.__count == 0:
+            self._balance = self._balance + (amount * 2)
+            print("Deposit Complete")
+            FirstAccountReward.__count += 1
+        else:
+            BankAccount.deposit(self,amount)   
 
-# Sambhav_acc = BankAccount(20, 2000)
 
-# Sambhav_acc.change_age(21)
-# Sambhav_acc.deposit(1000)
-# Sambhav_acc.withdraw(500)
+    

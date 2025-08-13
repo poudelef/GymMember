@@ -45,14 +45,3 @@ class Person:
             "registered date": self.__registered_date,
             }
     
-
-# Sambhav = Person("Sambhav", "2005-01-31", "513-276-2979", "Male", "1234 Elm St, Springfield, IL")    
-# print(Sambhav.person_info())
-
-# Sambhav.update_DOB("2005-02-01")
-# Sambhav.update_DOB("2005-02-02")
-# Sambhav.update_DOB("2005-02-03")
-# Sambhav.update_DOB("2005-02-04")
-# Sambhav.update_DOB("2005-02-05")
-
-
